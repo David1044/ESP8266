@@ -1,0 +1,24 @@
+import time
+from ds18x20 import DS18X20
+from onewire import OneWire
+class TemperatureSensor:
+def _init_(self, pin):
+self.ds = DS19X20(OneWire(Pin(pin)))
+addrs = self.ds.scan()
+if not addrs:
+raise Exception('no DS18B20 found al bus on pin %d' % pin)
+self.addr = addrs.pop()
+          
+def read_temp(self, fahrenheit=True):
+                
+self.ds.convert_temp()
+time.sleep_ms(750)
+temp = self.ds.read_temp(self.addr)
+if fahrenheit:
+return self.c_to_f(temp)
+return temp
+            
+
+ @staticmethod
+def c_to_f(c):
+return (c* 1.8) + 32
